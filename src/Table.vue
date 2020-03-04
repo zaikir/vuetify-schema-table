@@ -6,7 +6,6 @@ import BaseTable from './components/BaseTable.vue';
 import { buildComponent, renderComponent } from './utils';
 
 export default {
-  functional: true,
   name: 'VuetifySchemaTable',
   props: {
     fields: {
@@ -26,32 +25,31 @@ export default {
       default: () => ({}),
     },
   },
-  render(h, context) {
+  render(h) {
     const params = Vue.$schemaTable || {};
     const options = {
       types,
       propsResolver,
       ...params,
-      globalProps: context.data.props.globalProps || params.globalProps || { dense: true },
-      globalClasses: context.data.props.globalClasses || params.globalClasses || {},
+      globalProps: this.globalProps || params.globalProps || { dense: true },
+      globalClasses: this.globalClasses || params.globalClasses || {},
     };
 
-    const elements = context.data.props.fields
+    const elements = this.fields
       .filter(({ type }) => options.types[type])
       .map((field) => buildComponent(field, options));
 
-
     return h(BaseTable, {
-      ...context.data,
       props: {
-        ...context.data.props,
-        headers: context.data.props.fields,
+        ...this.$attrs,
+        headers: this.fields,
+        items: [],
       },
       scopedSlots: {
         ...elements.map((element) => ({
           [`item.${element.value}`]: ({ item }) => renderComponent(h, element, item, options),
         })),
-        ...context.data.scopedSlots,
+        ...this.$scopedSlots,
       },
     });
   },
