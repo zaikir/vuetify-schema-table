@@ -33,6 +33,7 @@ export default {
       ...params,
       globalProps: this.globalProps || params.globalProps || { dense: true },
       globalClasses: this.globalClasses || params.globalClasses || {},
+      context: this.context || {},
     };
 
     const elements = this.fields
