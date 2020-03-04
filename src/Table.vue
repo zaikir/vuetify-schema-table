@@ -39,17 +39,21 @@ export default {
       .filter(({ type }) => options.types[type])
       .map((field) => buildComponent(field, options));
 
+    const scopedSlots = {
+      ...Object.assign(
+        {}, ...elements.map((element) => ({
+          [`item.${element.props.value}`]: ({ item }) => renderComponent(h, element, item, options),
+        })),
+      ),
+      ...this.$scopedSlots,
+    };
+
     return h(BaseTable, {
       props: {
         ...this.$attrs,
         headers: this.fields,
       },
-      scopedSlots: {
-        ...elements.map((element) => ({
-          [`item.${element.value}`]: ({ item }) => renderComponent(h, element, item, options),
-        })),
-        ...this.$scopedSlots,
-      },
+      scopedSlots,
     });
   },
 };
