@@ -43,7 +43,6 @@ export default {
       props: {
         ...this.$attrs,
         headers: this.fields,
-        items: [],
       },
       scopedSlots: {
         ...elements.map((element) => ({
