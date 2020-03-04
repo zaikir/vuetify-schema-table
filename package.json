@@ -44,6 +44,6 @@
     "vuetify": "^2.2.15"
   },
   "dependencies": {
-    "moment": "^2.24.0"
+    "moment-mini": "^2.24.0"
   }
 }
