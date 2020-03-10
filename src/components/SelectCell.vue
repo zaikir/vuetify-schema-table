@@ -3,17 +3,25 @@ export default {
   functional: true,
   props: {
     value: String,
-    itemValue: String,
-    itemText: String,
-    items: Array,
+    itemValue:  {
+      type: String,
+      default: 'value',
+    },
+    itemText: {
+      type: String,
+      default: 'text',
+    },
+    items: {
+      type: Array,
+      default: [],
+    }
   },
   render(createElement, context) {
-    if (!context.props.value) { return createElement('span', '—'); }
-
-    const elem = (context.props.items || []).find((x) => x[context.props.itemValue || 'value'] === context.props.value);
+    const { items, itemValue, itemText, value } = context.props
+    const elem = items.find((x) => x[itemValue] === value);
     if (!elem) { return '—'; }
 
-    return createElement('span', elem[context.props.itemText || 'text']);
+    return createElement('span', elem[itemText]);
   },
 };
 </script>

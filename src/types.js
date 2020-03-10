@@ -3,8 +3,14 @@ import {
 } from './components';
 
 export default {
-  checkbox: { component: CheckboxCell },
-  switch: { component: SwitchCell },
+  checkbox: { 
+    component: CheckboxCell,
+    noEmptyIcon: true
+  },
+  switch: { 
+    component: SwitchCell,
+    noEmptyIcon: true
+  },
   date: { component: DateCell },
   datetime: { component: DateTimeCell },
   email: { component: EmailCell },

@@ -5,8 +5,10 @@ export default (h, node, item, {
   const { propsResolver } = options;
 
   const {
-    component, props, class: _class, style, postProcessProps = ({ props: _props }) => ({ props: _props }),
+    component, props, class: _class, style, 
+    postProcessProps = ({ props: _props }) => ({ props: _props }),
     methods = [],
+    noEmptyIcon
   } = node;
 
   const totalContext = { item, ...context };
@@ -34,8 +36,8 @@ export default (h, node, item, {
       [`${event.replace('@', '')}`]: props[event],
     }))),
   };
-
-  return !totalProps.value
+  
+  return !totalProps.value && !noEmptyIcon
     ? h('span', '—')
     : h(component, {
       ...postProcessProps({ props: totalProps, options, ...totalContext }),

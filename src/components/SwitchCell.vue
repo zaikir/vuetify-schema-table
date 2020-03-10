@@ -13,6 +13,7 @@ export default {
         inputValue: context.props.value,
         dense: true,
         disabled: true,
+        color: 'white'
       },
       class: {
         'mt-0': true,

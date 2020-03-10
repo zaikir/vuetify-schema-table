@@ -8,8 +8,8 @@ export default {
     format: String,
   },
   render(createElement, context) {
-    if (!context.props.value) { return createElement('span', '—'); }
-    return createElement('span', moment(context.props.value).format(context.props.format || 'DD.MM.YYYY'));
+    const { value, format } = context.props
+    return createElement('span', moment(value).format(format || 'DD.MM.YYYY'));
   },
 };
 </script>
