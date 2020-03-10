@@ -1,4 +1,3 @@
-export { default as BaseTable } from './BaseTable.vue';
 export { default as CheckboxCell } from './CheckboxCell.vue';
 export { default as DateCell } from './DateCell.vue';
 export { default as DateTimeCell } from './DateTimeCell.vue';

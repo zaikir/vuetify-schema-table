@@ -1,7 +1,5 @@
 export default (h, node, item, {
   context = {},
-  scopedSlots = {},
-  slots = {},
   ...options
 } = {}) => {
   const { propsResolver } = options;
@@ -37,14 +35,12 @@ export default (h, node, item, {
     }))),
   };
 
-  return props.value && scopedSlots[`field.${props.value}`]
-    ? scopedSlots[`field.${props.value}`](totalContext)
+  return !totalProps.value
+    ? h('span', '—')
     : h(component, {
       ...postProcessProps({ props: totalProps, options, ...totalContext }),
       class: _class,
       style,
       on,
-    }, [
-      slots[`field.${props.value}`] && slots[`field.${props.value}`].map((func) => func()),
-    ]);
+    });
 };

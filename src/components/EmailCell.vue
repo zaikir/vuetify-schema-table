@@ -5,8 +5,6 @@ export default {
     value: String,
   },
   render(createElement, context) {
-    if (!context.props.value) { return createElement('span', '—'); }
-
     return createElement('a', {
       attrs: {
         href: `mailto://${context.props.value}`,

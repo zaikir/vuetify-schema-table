@@ -1,6 +1,6 @@
 <script>
 import { VDataTable, VProgressLinear } from 'vuetify/lib/components';
-import { withDoubleClickEventDataTable } from '../utils';
+import { withDoubleClickEventDataTable } from './utils';
 
 export default {
   functional: true,

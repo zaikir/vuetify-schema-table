@@ -2,7 +2,7 @@
 import Vue from 'vue';
 import types from './types';
 import propsResolver from './propsResolver';
-import BaseTable from './components/BaseTable.vue';
+import BaseTable from './BaseTable.vue';
 import { buildComponent, renderComponent } from './utils';
 
 export default {
