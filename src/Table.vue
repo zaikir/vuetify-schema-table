@@ -27,10 +27,7 @@ export default {
     };
 
     const elements = props.fields
-      // .filter(({ type }) => options.types[type])
       .map((field) => buildComponent(field, options));
-
-    console.log(elements)
 
     const totalScopedSlots = {
       ...Object.assign(
