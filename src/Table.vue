@@ -3,6 +3,7 @@ import Vue from 'vue';
 import types from './types';
 import propsResolver from './propsResolver';
 import BaseTable from './BaseTable.vue';
+import { VSkeletonLoader } from 'vuetify/lib/components';
 import { buildComponent, renderComponent } from './utils';
 
 export default {
@@ -12,6 +13,7 @@ export default {
     fields: { type: Array, required: true },
     globalProps: Object,
     globalClasses: Object,
+    skeletonLoading: Boolean,
     context: { type: Object, default: () => ({}) },
   },
   render(h, context) {
@@ -24,6 +26,7 @@ export default {
       globalProps: props.globalProps || params.globalProps || { dense: true },
       globalClasses: props.globalClasses || params.globalClasses || {},
       context: props.context || {},
+      skeletonLoading: props.skeletonLoading,
     };
 
     const elements = props.fields
@@ -35,17 +38,38 @@ export default {
           [`item.${element.props.value}`]: ({ item }) => renderComponent(h, element, item, options),
         })),
       ),
-      ...scopedSlots,
+      ...!props.skeletonLoading && scopedSlots,
+      ...props.skeletonLoading && Object.assign(
+        {}, ...props.fields.map((field) => ({
+          [`header.${field.value}`]: ({ item }) => h(VSkeletonLoader, { props: {type: 'table-cell'} }),
+        })),
+      ),
     };
+
+    const { itemsPerPage = 10, hideDefaultHeader } = (props.options || {})
+    const skeletonLoading = props.skeletonLoading && itemsPerPage
+    const skeletonLoadingProps = skeletonLoading
+      ? {
+        items: [...new Array(itemsPerPage).keys()].map(() => ({})),
+        serverItemsLength: itemsPerPage,
+        loading: false,
+      }
+      : {}
 
     return h(BaseTable, {
       ...context.data,
       props: {
         ...props,
-        headers: props.fields,
+        ...skeletonLoadingProps,
+        headers: !skeletonLoading ? props.fields : props.fields.map(x => ({...x, sortable: false})),
       },
       scopedSlots: totalScopedSlots,
     });
   },
 };
 </script>
+<style>
+  .vsh-skeleton-loading .v-skeleton-loader__text {
+    margin-bottom: 0px;
+  }
+</style>

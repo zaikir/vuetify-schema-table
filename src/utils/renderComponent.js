@@ -1,9 +1,10 @@
+import { VSkeletonLoader } from 'vuetify/lib/components';
+
 export default (h, node, item, {
   context = {},
   ...options
 } = {}) => {
-  const { propsResolver } = options;
-
+  const { propsResolver, skeletonLoading } = options;
   const {
     component, props, class: _class, style, 
     postProcessProps = ({ props: _props }) => ({ props: _props }),
@@ -37,14 +38,23 @@ export default (h, node, item, {
     }))),
   };
   
-  if (!totalProps.value && !noEmptyIcon) {
+  if (!totalProps.value && !noEmptyIcon && !skeletonLoading) {
     return '—'
   }
-  
-  return component ? h(component, {
-    ...postProcessProps({ props: totalProps, options, ...totalContext }),
-    class: _class,
-    style,
-    on,
-  }) : totalProps.value;
+
+  return h(VSkeletonLoader, {
+    props: {
+      loading: skeletonLoading,
+      type: 'text',
+      ...props.skeleton
+    },
+    class: 'vsh-skeleton-loading'
+  }, [
+    component ? h(component, {
+      ...postProcessProps({ props: totalProps, options, ...totalContext }),
+      class: _class,
+      style,
+      on,
+    }) : totalProps.value
+  ])
 };
