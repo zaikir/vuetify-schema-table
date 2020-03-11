@@ -37,12 +37,14 @@ export default (h, node, item, {
     }))),
   };
   
-  return !totalProps.value && !noEmptyIcon
-    ? h('span', '—')
-    : h(component, {
-      ...postProcessProps({ props: totalProps, options, ...totalContext }),
-      class: _class,
-      style,
-      on,
-    });
+  if (!totalProps.value && !noEmptyIcon) {
+    return '—'
+  }
+  
+  return component ? h(component, {
+    ...postProcessProps({ props: totalProps, options, ...totalContext }),
+    class: _class,
+    style,
+    on,
+  }) : totalProps.value;
 };

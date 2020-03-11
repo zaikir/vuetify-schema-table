@@ -7,7 +7,7 @@ export default (element, {
     type, class: _class = {}, style, ...props
   } = element;
 
-  const { component, ...rest } = types[type];
+  const { component, ...rest } = (types[type] || {});
 
   return {
     component,

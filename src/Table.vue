@@ -6,55 +6,48 @@ import BaseTable from './BaseTable.vue';
 import { buildComponent, renderComponent } from './utils';
 
 export default {
+  functional: true,
   name: 'VuetifySchemaTable',
   props: {
-    fields: {
-      type: Array,
-      required: true,
-    },
-    globalProps: {
-      type: Object,
-      default: null,
-    },
-    globalClasses: {
-      type: Object,
-      default: null,
-    },
-    context: {
-      type: Object,
-      default: () => ({}),
-    },
+    fields: { type: Array, required: true },
+    globalProps: Object,
+    globalClasses: Object,
+    context: { type: Object, default: () => ({}) },
   },
-  render(h) {
+  render(h, context) {
+    const { props, scopedSlots } = context.data
     const params = Vue.$schemaTable || {};
     const options = {
       types,
       propsResolver,
       ...params,
-      globalProps: this.globalProps || params.globalProps || { dense: true },
-      globalClasses: this.globalClasses || params.globalClasses || {},
-      context: this.context || {},
+      globalProps: props.globalProps || params.globalProps || { dense: true },
+      globalClasses: props.globalClasses || params.globalClasses || {},
+      context: props.context || {},
     };
 
-    const elements = this.fields
-      .filter(({ type }) => options.types[type])
+    const elements = props.fields
+      // .filter(({ type }) => options.types[type])
       .map((field) => buildComponent(field, options));
 
-    const scopedSlots = {
+    console.log(elements)
+
+    const totalScopedSlots = {
       ...Object.assign(
         {}, ...elements.map((element) => ({
           [`item.${element.props.value}`]: ({ item }) => renderComponent(h, element, item, options),
         })),
       ),
-      ...this.$scopedSlots,
+      ...scopedSlots,
     };
 
     return h(BaseTable, {
+      ...context.data,
       props: {
-        ...this.$attrs,
-        headers: this.fields,
+        ...props,
+        headers: props.fields,
       },
-      scopedSlots,
+      scopedSlots: totalScopedSlots,
     });
   },
 };
