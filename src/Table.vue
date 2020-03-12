@@ -40,8 +40,10 @@ export default {
       ),
       ...!props.skeletonLoading && scopedSlots,
       ...props.skeletonLoading && Object.assign(
-        {}, ...props.fields.map((field) => ({
-          [`header.${field.value}`]: ({ item }) => h(VSkeletonLoader, { props: {type: 'table-cell'} }),
+        {}, ...props.fields
+        .filter(field => field.headerSkeleton !== false && field.headerSkeleton !== null)
+        .map((field) => ({
+          [`header.${field.value}`]: ({ item }) => h(VSkeletonLoader, { props: {type: 'text', transition: "fade-transition", ...(field.headerSkeleton || field.skeleton)} }),
         })),
       ),
     };

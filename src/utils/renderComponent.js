@@ -42,19 +42,15 @@ export default (h, node, item, {
     return '—'
   }
 
-  return h(VSkeletonLoader, {
-    props: {
-      loading: skeletonLoading,
-      type: 'text',
-      ...props.skeleton
-    },
+  return skeletonLoading 
+  ? h(VSkeletonLoader, {
+    props: { loading: skeletonLoading, type: 'text', ...props.skeleton },
     class: 'vsh-skeleton-loading'
-  }, [
-    component ? h(component, {
-      ...postProcessProps({ props: totalProps, options, ...totalContext }),
-      class: _class,
-      style,
-      on,
-    }) : totalProps.value
-  ])
+  })
+  : component ?  h(component, {
+    ...postProcessProps({ props: totalProps, options, ...totalContext }),
+    class: _class,
+    style,
+    on,
+  }) : totalProps.value
 };
