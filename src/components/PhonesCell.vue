@@ -11,7 +11,7 @@ const formatPhone = (phone = '', countryCode, sign) => {
 export default {
   functional: true,
   props: {
-    value: [String],
+    value: Array,
     sign: {
       type: String,
       default: '+',
@@ -24,15 +24,15 @@ export default {
   render(createElement, context) {
     const renderPhone = phone => {
       const item = formatPhone(phone, context.props.countryCode, context.props.sign);
-      return createElement('a', {
+      return createElement('li', [createElement('a', {
         attrs: {
           href: `tel://${item.internal}`,
           itemprop: 'telephone',
         },
-      }, item.display);
+      }, item.display)]);
     }
 
-    return (context.props.value || []).map(renderPhone)
+    return createElement('ul', (context.props.value || []).map(renderPhone))
   },
 };
 </script>
