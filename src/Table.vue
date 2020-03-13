@@ -14,6 +14,7 @@ export default {
     globalProps: Object,
     globalClasses: Object,
     skeletonLoading: Boolean,
+    skeletonRowsCount: Number,
     context: { type: Object, default: () => ({}) },
   },
   render(h, context) {
@@ -52,7 +53,7 @@ export default {
     const skeletonLoading = props.skeletonLoading && itemsPerPage
     const skeletonLoadingProps = skeletonLoading
       ? {
-        items: [...new Array(itemsPerPage).keys()].map(() => ({})),
+        items: [...new Array(props.skeletonRowsCount ? props.skeletonRowsCount : itemsPerPage).keys()].map(() => ({})),
         serverItemsLength: itemsPerPage,
         loading: false,
       }
