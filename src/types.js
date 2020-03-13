@@ -1,5 +1,5 @@
 import {
-  CheckboxCell, DateCell, DateTimeCell, EmailCell, PhoneCell, SelectCell, SwitchCell,
+  CheckboxCell, DateCell, DateTimeCell, EmailCell, PhoneCell, PhonesCell, SelectCell, SwitchCell,
 } from './components';
 
 export default {
@@ -15,5 +15,6 @@ export default {
   datetime: { component: DateTimeCell },
   email: { component: EmailCell },
   phone: { component: PhoneCell },
+  phones: { component: PhonesCell },
   select: { component: SelectCell },
 };
