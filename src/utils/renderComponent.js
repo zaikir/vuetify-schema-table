@@ -51,6 +51,11 @@ export default (h, node, item, {
     ...postProcessProps({ props: totalProps, options, ...totalContext }),
     class: _class,
     style,
-    on,
+    on: {
+      input: val => {
+        item[props.value] = val
+      },
+      ...on,
+    },
   }) : totalProps.value
 };

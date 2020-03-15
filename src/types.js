@@ -9,7 +9,10 @@ export default {
   },
   switch: { 
     component: SwitchCell,
-    noEmptyIcon: true
+    noEmptyIcon: true,
+    postProcessProps: ({props, item})=> {
+      return {props: {...props, $item: item}}
+    }
   },
   date: { component: DateCell },
   datetime: { component: DateTimeCell },
