@@ -62,6 +62,9 @@ export default {
     return h(BaseTable, {
       ...context.data,
       props: {
+        footerProps: {
+          itemsPerPageOptions: [10, 50, 200, -1]
+        },
         ...props,
         ...skeletonLoadingProps,
         headers: !skeletonLoading ? props.fields : props.fields.map(x => ({...x, sortable: false})),
