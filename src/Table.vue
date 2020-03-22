@@ -14,7 +14,7 @@ export default {
     globalProps: Object,
     globalClasses: Object,
     skeletonLoading: Boolean,
-    skeletonRowsCount: Number,
+    skeletonRowsCount: { type: Number, default: 4 },
     context: { type: Object, default: () => ({}) },
   },
   render(h, context) {
