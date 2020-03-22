@@ -40,7 +40,7 @@ export default {
         items: [...new Array(props.skeletonRowsCount ? props.skeletonRowsCount : 3).keys()].map(() => ({})),
         serverItemsLength: props.skeletonRowsCount ? props.skeletonRowsCount : 3,
         loading: false,
-        hideDefaultFooter: skeletonLoading
+        hideDefaultFooter: !!skeletonLoading
       }
       : {}
 
