@@ -12,7 +12,7 @@ export default {
         mustSort: true,
       },
       class: 'vst-base-table',
-    }, [
+    }, [ 
       ...context.children || [],
       createElement(
         'div',

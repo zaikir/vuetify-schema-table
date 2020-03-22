@@ -33,6 +33,17 @@ export default {
     const elements = props.fields
       .map((field) => buildComponent(field, options));
 
+    const { itemsPerPage = 10, hideDefaultHeader } = (props.options || {})
+    const skeletonLoading = props.skeletonLoading && itemsPerPage
+    const skeletonLoadingProps = skeletonLoading
+      ? {
+        items: [...new Array(props.skeletonRowsCount ? props.skeletonRowsCount : 3).keys()].map(() => ({})),
+        serverItemsLength: props.skeletonRowsCount ? props.skeletonRowsCount : 3,
+        loading: false,
+        hideDefaultFooter: skeletonLoading
+      }
+      : {}
+
     const totalScopedSlots = {
       ...Object.assign(
         {}, ...elements.map((element) => ({
@@ -46,18 +57,8 @@ export default {
         .map((field) => ({
           [`header.${field.value}`]: ({ item }) => h(VSkeletonLoader, { props: {type: 'text', transition: "fade-transition", ...(field.headerSkeleton || field.skeleton)} }),
         })),
-      ),
+      )
     };
-
-    const { itemsPerPage = 10, hideDefaultHeader } = (props.options || {})
-    const skeletonLoading = props.skeletonLoading && itemsPerPage
-    const skeletonLoadingProps = skeletonLoading
-      ? {
-        items: [...new Array(props.skeletonRowsCount ? props.skeletonRowsCount : itemsPerPage).keys()].map(() => ({})),
-        serverItemsLength: itemsPerPage,
-        loading: false,
-      }
-      : {}
 
     return h(BaseTable, {
       ...context.data,
@@ -70,7 +71,9 @@ export default {
         headers: !skeletonLoading ? props.fields : props.fields.map(x => ({...x, sortable: false})),
       },
       scopedSlots: totalScopedSlots,
-    });
+    }, [
+      skeletonLoading && h(VSkeletonLoader, { slot: 'footer', props: {loading: true, type: 'table-tfoot'}}),
+    ]);
   },
 };
 </script>
