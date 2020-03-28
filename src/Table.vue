@@ -18,8 +18,14 @@ export default {
     context: { type: Object, default: () => ({}) },
   },
   render(h, context) {
-    const { props, scopedSlots } = context.data
+    let { props, scopedSlots } = context.data
     const params = Vue.$schemaTable || {};
+
+    // Workaround
+    if (!props) {
+      props = context.props
+    }
+
     const options = {
       types,
       propsResolver,
