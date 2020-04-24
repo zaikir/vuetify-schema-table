@@ -1,6 +1,6 @@
 {
   "name": "vuetify-schema-table",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Generate tables for the vuetify UI library (vuejs) based on annotated JSON schemas.",
   "main": "src/index.js",
   "scripts": {
