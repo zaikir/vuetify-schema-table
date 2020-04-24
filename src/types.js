@@ -1,6 +1,6 @@
 import {
   CheckboxCell, DateCell, DateTimeCell, EmailCell, PhoneCell, PhonesCell, SelectCell, SwitchCell,
-  ImageCell, ImagesCell
+  ImageCell, ImagesCell, ArrayCell
 } from './components';
 
 export default {
@@ -23,4 +23,5 @@ export default {
   select: { component: SelectCell },
   image: { component: ImageCell },
   images: { component: ImagesCell },
+  array: { component: ArrayCell },
 };
