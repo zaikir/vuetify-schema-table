@@ -6,3 +6,5 @@ export { default as PhoneCell } from './PhoneCell.vue';
 export { default as PhonesCell } from './PhonesCell.vue';
 export { default as SelectCell } from './SelectCell.vue';
 export { default as SwitchCell } from './SwitchCell.vue';
+export { default as ImageCell } from './ImageCell.vue';
+export { default as ImagesCell } from './ImagesCell.vue';
