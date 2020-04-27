@@ -20,6 +20,10 @@ export default {
   render(createElement, context) {
     const { value, width, resolve } = context.props
 
+    if (!value || !value.length) {
+      return createElement('span', '—')
+    }
+
     return createElement('div', {}, value.map(img => {
       return createElement('a', {
         attrs: {

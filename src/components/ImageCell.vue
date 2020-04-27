@@ -20,16 +20,23 @@ export default {
   render(createElement, context) {
     const { value, width, resolve } = context.props
 
+    const url = resolve(value)
+
+
+    if (!url || !url.length) {
+      return createElement('span', '—')
+    }
+
     return createElement('a', {
       attrs: {
-        href: resolve(value),
+        href: url,
         target: '_blank',
       }
     }, [createElement(VImg, {
       props: {
         width,
         aspectRatio: 1,
-        src: resolve(value)
+        src: url
       },
       style: 'border: thin solid gray;cursor:zoom-in;',
       class: {
