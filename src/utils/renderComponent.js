@@ -41,7 +41,7 @@ export default (h, node, item, {
     }))),
   };
   
-  if ((!totalProps.value || (typeof totalProps.value ==='object' && !totalProps.value.length)) && !noEmptyIcon && !skeletonLoading) {
+  if (!totalProps.value && !noEmptyIcon && !skeletonLoading) {
     return '—'
   }
 
