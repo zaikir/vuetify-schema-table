@@ -13,11 +13,14 @@ export default (h, node, item, {
   } = node;
 
   const totalContext = { item, ...context };
+  const systemKeys = ['resolveValue', 'postProcess']
   const totalProps = Object.assign({}, ...Object.entries(props)
-    .filter(([key]) => !key.startsWith('@') && !key.startsWith('$'))
+    .filter(([key]) => !key.startsWith('@') && !key.startsWith('$') && !systemKeys.includes(key))
     .map(([key, value]) => {
       if (key === 'value') {
-        return { value: item[value] };
+        return { 
+          value: props.resolveValue ? props.resolveValue(item[value]) : item[value]
+        };
       }
 
       const resolver = propsResolver[key];
@@ -38,7 +41,7 @@ export default (h, node, item, {
     }))),
   };
   
-  if (!totalProps.value && !noEmptyIcon && !skeletonLoading) {
+  if ((!totalProps.value || (typeof totalProps.value ==='object' && !totalProps.value.length)) && !noEmptyIcon && !skeletonLoading) {
     return '—'
   }
 
@@ -54,6 +57,7 @@ export default (h, node, item, {
     on: {
       input: val => {
         item[props.value] = val
+        item[props.value] = props.postProcess ? props.postProcess(item[props.value]) : item[props.value];
       },
       ...on,
     },

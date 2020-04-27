@@ -12,11 +12,11 @@ export default {
   render(createElement, context) {
     const renderValue = item => {
       return createElement('li', [
-        resolve(createElement, item)
+        context.props.resolve(createElement, item)
       ]);
     }
 
-    return createElement('ul', (context.props.value || []).map(renderPhone))
+    return createElement('ul', (context.props.value || []).map(renderValue))
   },
 };
 </script>
