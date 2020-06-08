@@ -19,7 +19,7 @@ export default (h, node, item, {
     .map(([key, value]) => {
       if (key === 'value') {
         return { 
-          value: props.resolveValue ? props.resolveValue(item[value]) : item[value]
+          value: props.resolveValue ? props.resolveValue(item[value], totalContext) : item[value]
         };
       }
 
