@@ -15,6 +15,7 @@ export default {
     globalClasses: Object,
     skeletonLoading: Boolean,
     skeletonRowsCount: { type: Number, default: 4 },
+    footerProps: Object,
     context: { type: Object, default: () => ({}) },
   },
   render(h, context) {
