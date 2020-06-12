@@ -88,4 +88,8 @@ export default {
   .vsh-skeleton-loading .v-skeleton-loader__text {
     margin-bottom: 0px;
   }
+
+  .vst-base-table td {
+    line-height: 1.1rem;
+  }
 </style>
