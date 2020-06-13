@@ -22,7 +22,16 @@ export default (Table) => ({
     return createElement(Table, {
       ...context.data,
       on: {
-        'click:row': selectRow((item) => context.listeners['dblclick:row'] && context.listeners['dblclick:row'](item)),
+        'click:row': (args) => {
+          if (context.parent.$vuetify.breakpoint.xsOnly) {
+            context.listeners['opened'] && context.listeners['opened'](args)
+          }
+
+          selectRow((item) => {
+            context.listeners['dblclick:row'] && context.listeners['dblclick:row'](item)
+            context.listeners['opened'] && context.listeners['opened'](item)
+          })(args)
+        },
         ...context.data.on,
       },
     }, context.children);
