@@ -74,7 +74,7 @@ export default {
         ...skeletonLoadingProps,
         headers: !skeletonLoading ? props.fields : props.fields.map(x => ({...x, sortable: false})),
         footerProps: props.footerProps || {
-          itemsPerPageOptions: [100, 200, -1]
+          itemsPerPageOptions: [50, 100, 200, -1]
         },
       },
       scopedSlots: totalScopedSlots,
