@@ -72,7 +72,9 @@ export default {
       props: {
         ...props,
         ...skeletonLoadingProps,
-        headers: !skeletonLoading ? props.fields : props.fields.map(x => ({...x, sortable: false})),
+        headers: !skeletonLoading 
+          ? props.fields.filter(x => !x.if || x.if({ item: x })) 
+          : props.fields.filter(x => !x.if || x.if({ item: x })).map(x => ({...x, sortable: false})),
         footerProps: props.footerProps || {
           itemsPerPageOptions: [50, 100, 200, -1]
         },
